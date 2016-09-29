@@ -1,1 +1,4 @@
-sceneSetups: []
+sceneSetups:
+- path: Assets/stg_basic_pics/testscene_for_capture/testscene_for_screencapture.unity
+  isLoaded: 1
+  isActive: 1
