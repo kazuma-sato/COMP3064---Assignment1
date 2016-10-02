@@ -31,17 +31,17 @@ public class EnemyController : MonoBehaviour {
 		_currentPosition += currSpeed;
 		_transform.position = _currentPosition;
 
-		Debug.Log (_xBounds + " " + _currentPosition.y.ToString()); 
+		//Debug.Log (_xBounds + " " + _currentPosition.y.ToString()); 
 		if(_currentPosition.x <= _xBounds) {
 			Reset();
 		}
 	}
 
 	public void Reset(){
-		Debug.Log("Oh shit! Im resetting!!!");
+		//Debug.Log("Oh shit! Im resetting!!!");
 		direction *= -1;
 		_currentPosition = new Vector2(-_xBounds, direction * Camera.main.orthographicSize);
-		Debug.Log (_currentPosition.ToString ());
+		//Debug.Log (_currentPosition.ToString ());
 		_transform.position = _currentPosition;
 	}
 }

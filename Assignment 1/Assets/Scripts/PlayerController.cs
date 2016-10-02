@@ -16,15 +16,28 @@ public class PlayerController : MonoBehaviour {
 	private float _playerInput;
 	private float _yBounds;
 
-	void Start () {
+	void Start(){
 		_transform = gameObject.GetComponent<Transform>();
 		_currentPosition = _transform.position;
 		_yBounds = Camera.main.orthographicSize;
 	}
 
-	void Update () {
+	void FixedUpdate(){
 		_playerInput = Input.GetAxis("Vertical");
 		_currentPosition = _transform.position;
+
+		transform.rotation = Quaternion.FromToRotation(
+			GameObject.FindGameObjectWithTag("Player").transform.position
+			, Input.mousePosition
+		);
+		// Camera.main.ScreenToWorldPoint (Input.mousePosition) 
+		/*
+		Quaternion _qRotation = Quaternion.LookRotation(
+			(_transform.position + Camera.main.ScreenToWorldPoint(Input.mousePosition))
+			, new Vector3(,1,0)
+		);
+		*/
+
 		//move up
 		if (_playerInput > 0) {
 			_currentPosition += new Vector2 (0, speed);
@@ -36,6 +49,11 @@ public class PlayerController : MonoBehaviour {
 		//fix bounds
 		checkBounds ();
 		_transform.position = _currentPosition;
+
+		//point player towards pointer
+		//Debug.Log(_transform.rotation.ToString() + "  rotating:" + _qRotation.ToString());
+		//_transform.rotation = _qRotation;
+		//_transform.eulerAngles = new Vector3 (0, 0, _transform.eulerAngles.z);
 	}
 	private void checkBounds(){
 
