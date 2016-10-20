@@ -22,46 +22,30 @@ public class PlayerController : MonoBehaviour {
 		_yBounds = Camera.main.orthographicSize;
 	}
 
-	void FixedUpdate(){
-		_playerInput = Input.GetAxis("Vertical");
+	void Update(){
+
+		_playerInput = Input.GetAxis ("Vertical");
 		_currentPosition = _transform.position;
 
-		transform.rotation = Quaternion.FromToRotation(
-			GameObject.FindGameObjectWithTag("Player").transform.position
-			, Input.mousePosition
-		);
-		// Camera.main.ScreenToWorldPoint (Input.mousePosition) 
-		/*
-		Quaternion _qRotation = Quaternion.LookRotation(
-			(_transform.position + Camera.main.ScreenToWorldPoint(Input.mousePosition))
-			, new Vector3(,1,0)
-		);
-		*/
+
+		//Rotate Player towards mouse pointer
+		transform.rotation = Quaternion.LookRotation(Vector3.forward, 
+			Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
 
 		//move up
-		if (_playerInput > 0) {
+		if (_playerInput > 0) 
 			_currentPosition += new Vector2 (0, speed);
-		}
 		//move down
 		if (_playerInput < 0) {
 			_currentPosition -= new Vector2 (0, speed);
 		}
+
 		//fix bounds
-		checkBounds ();
-		_transform.position = _currentPosition;
-
-		//point player towards pointer
-		//Debug.Log(_transform.rotation.ToString() + "  rotating:" + _qRotation.ToString());
-		//_transform.rotation = _qRotation;
-		//_transform.eulerAngles = new Vector3 (0, 0, _transform.eulerAngles.z);
-	}
-	private void checkBounds(){
-
-		if (_currentPosition.y < -1 * _yBounds) {
-			_currentPosition.y = -1 * _yBounds;
-		}
-		if (_currentPosition.y > _yBounds){
+		if(_currentPosition.y > _yBounds)
 			_currentPosition.y = _yBounds;
-		}
+		if(_currentPosition.y < -_yBounds)
+			_currentPosition.y = -_yBounds;
+
+		_transform.position = _currentPosition;
 	}
 }

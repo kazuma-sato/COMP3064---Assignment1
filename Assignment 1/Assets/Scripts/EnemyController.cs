@@ -9,39 +9,63 @@ using System.Collections;
 public class EnemyController : MonoBehaviour {
 	
 	[SerializeField]
-	private Vector2 speed = Vector2.zero;
+	private Vector2 speed;
+
+	[SerializeField]
+	private float speedCurrentMax = 0.2f;
+
+	[SerializeField]
+	private float speedIncreaseFactor = 1.01f;
+
+	[SerializeField]
+	private float speedGameMax = 5f;
 
 	private Transform _transform;
 	private Vector2 _currentPosition;
 	private float _xBounds;
+	private float _yBounds;
 
 	//direction: positive when moving up, negative when moving down
 	private int direction = 1;
 
 	void Start(){
+
 		_transform = gameObject.GetComponent<Transform>();
 		_currentPosition = _transform.position;
+
+		//Get the bounds of the Camera
 		_xBounds = Camera.main.orthographicSize * Camera.main.aspect;
+		_yBounds = Camera.main.orthographicSize;
 		Reset ();
 	}
 
 	void Update(){
+
 		_currentPosition = _transform.position;
-		Vector2 currSpeed = new Vector2(speed.x, speed.y * direction);
+		Vector2 currSpeed = new Vector2(speed.x, speed.y * -direction);
 		_currentPosition += currSpeed;
 		_transform.position = _currentPosition;
 
-		//Debug.Log (_xBounds + " " + _currentPosition.y.ToString()); 
-		if(_currentPosition.x <= _xBounds) {
+		//Check to if enemy is out of bounds
+		if(_currentPosition.x > _xBounds ||
+				Mathf.Abs( _currentPosition.y) > _yBounds) 
 			Reset();
-		}
 	}
 
 	public void Reset(){
-		//Debug.Log("Oh shit! Im resetting!!!");
-		direction *= -1;
-		_currentPosition = new Vector2(-_xBounds, direction * Camera.main.orthographicSize);
-		//Debug.Log (_currentPosition.ToString ());
+
+		//Randomly selects if enemy is coming from top or bottom
+		direction *= (Random.value >= 0.5)? 1 : -1;
+
+		//Randomly changes speed but increases possible speed as game progresses
+		if(speedCurrentMax * speedIncreaseFactor < speedGameMax)
+			speedCurrentMax *= speedIncreaseFactor;
+		speed = new Vector2(speedCurrentMax * Random.value,
+			speedCurrentMax * Random.value);
+
+		_currentPosition = new Vector2(
+			Camera.main.gameObject.transform.position.x - _xBounds, 
+			direction * _yBounds);
 		_transform.position = _currentPosition;
 	}
 }

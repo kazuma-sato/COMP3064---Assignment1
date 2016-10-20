@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 030ede5f070c0674e989fe38c6faf41c
-timeCreated: 1476925653
+timeCreated: 1476939172
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -250,12 +250,12 @@ TextureImporter:
       name: stgpics_testbg_12
       rect:
         serializedVersion: 2
-        x: 209
+        x: 228
         y: 373
-        width: 32
+        width: 13
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: -1
