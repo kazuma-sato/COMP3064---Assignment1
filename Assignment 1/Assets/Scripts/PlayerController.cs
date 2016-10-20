@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
 		if (_currentPosition.y < -1 * _yBounds) {
 			_currentPosition.y = -1 * _yBounds;
 		}
-		if (_currentPosition.y > _yBounds) {
+		if (_currentPosition.y > _yBounds){
 			_currentPosition.y = _yBounds;
 		}
 	}
