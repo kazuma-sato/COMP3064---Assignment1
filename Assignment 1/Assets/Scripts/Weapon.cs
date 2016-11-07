@@ -46,6 +46,7 @@ public class Weapon : MonoBehaviour {
 			} else if ((Input.GetAxisRaw ("Fire1") > 0) && Time.time > timeToFire) {
 				timeToFire = Time.time + 1 / fireRate;
 				shootBullets (currentProjectile);
+                Camera.main.GetComponent<SFXController>().PlaySound(0, firePoint.position);
 			}
 		} else if (player.weapon == "Beam1") {
 			if (Input.GetButtonDown ("Fire1")) {
@@ -56,8 +57,10 @@ public class Weapon : MonoBehaviour {
 				currentProjectile = beamEnd;
 				shootBeams (currentProjectile);
 			}
-			if (Input.GetAxisRaw ("Fire1") > 0)
-				shootBeams (currentProjectile);
+			if(Input.GetAxisRaw ("Fire1") > 0) 
+                shootBeams (currentProjectile);
+            if(currentProjectile == beamTop) 
+                Camera.main.GetComponent<SFXController>().PlaySound(1, firePoint.position);
 		}
 	}
 

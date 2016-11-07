@@ -27,7 +27,7 @@ public class ItemController : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         _currentPosition = _transform.position;
         transform.Translate(Vector3.right * speed);

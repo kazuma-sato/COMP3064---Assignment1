@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour {
 		bulletTimer = Time.time + fireRate;
 	}
 
-	void Update(){
+	void FixedUpdate(){
 
 		_currentPosition = _transform.position;
 		_transform.Translate(Vector3.up * Random.value * speedCurrentMax);
@@ -88,6 +88,7 @@ public class EnemyController : MonoBehaviour {
 
 	//Just in case OnTriggerEnter2D() doesn't invoke on enter
 	void OnTriggerStay2D(Collider2D other){
+        
 		OnTriggerEnter2D(other);
 	}
 }

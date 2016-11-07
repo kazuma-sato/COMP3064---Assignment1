@@ -25,8 +25,7 @@ public class EnemyBulletController : MonoBehaviour {
 
         _transform = GetComponent<Transform> ();
     }
-
-    // Update is called once per frame
+        
     void Update () {
 
         _transform.Translate(Vector3.up * speed);
@@ -35,7 +34,7 @@ public class EnemyBulletController : MonoBehaviour {
             Destroy(gameObject);
     }
 
-    //When bullet hits an Enemy, the Enemy takes damage and bullet is destroyed.
+    //When bullet hits an Player, the Player takes damage and bullet is destroyed.
     void OnTriggerEnter2D(Collider2D other) {
 
         if (other.gameObject.layer == LayerMask.NameToLayer ("Player") && other.tag == "Ship") {

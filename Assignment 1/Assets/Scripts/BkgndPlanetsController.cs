@@ -54,7 +54,7 @@ public class BkgndPlanetsController : MonoBehaviour {
     private GameObject Reset(GameObject planet){
         
         GameObject planetInstance;
-        Vector3 spawnPosition = new Vector3(-_xBounds, 0, 0);
+        Vector3 spawnPosition = new Vector3(-_xBounds - planet.GetComponent<Renderer>().bounds.size.x / 2, 0, 0);
         Vector3 spawnRotation = new Vector3(0, 0, 90);
 
         if(planet.tag == "BottomPlanet") {
@@ -67,7 +67,7 @@ public class BkgndPlanetsController : MonoBehaviour {
         }
 
         planetInstance =  Instantiate(planet, spawnPosition, Quaternion.Euler(spawnRotation)) as GameObject;
-        planetInstance.transform.parent = gameObject.transform;
+        planetInstance.transform.parent = gameObject.transform; 
         return planetInstance;
 	}
     private bool checkBound(GameObject planet){

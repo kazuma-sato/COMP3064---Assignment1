@@ -31,5 +31,6 @@ public class Enemy : MonoBehaviour {
 
 		health = maxHealth;
         Destroy(gameObject);
+
 	}
 }
