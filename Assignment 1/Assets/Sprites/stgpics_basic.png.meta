@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4f3d817ad821bc345b488255f0de8318
-timeCreated: 1475115552
+timeCreated: 1478468645
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,16 +8,16 @@ TextureImporter:
     21300002: Player_ship
     21300004: Player_ship_right
     21300006: stgpics_basic_3
-    21300008: stgpics_basic_4
+    21300008: playerShadow
     21300010: stgpics_basic_5
     21300012: stgpics_basic_6
     21300014: stgpics_basic_7
     21300016: stgpics_basic_8
     21300018: stgpics_basic_9
     21300020: stgpics_basic_10
-    21300022: stgpics_basic_11
+    21300022: player_bulletM_Top
     21300024: stgpics_basic_12
-    21300026: player_bulletM
+    21300026: player_bulletM_left
     21300028: stgpics_basic_14
     21300030: stgpics_basic_15
     21300032: stgpics_basic_16
@@ -304,9 +304,9 @@ TextureImporter:
     21300594: stgpics_basic_297
     21300596: stgpics_basic_298
     21300598: stgpics_basic_299
-    21300600: stgpics_basic_300
+    21300600: enemy_bulletSmall
     21300602: stgpics_basic_301
-    21300604: enemy_bulletSmall
+    21300604: stgpics_basic_302
     21300606: stgpics_basic_303
     21300608: stgpics_basic_304
     21300610: stgpics_basic_305
@@ -316,9 +316,9 @@ TextureImporter:
     21300618: stgpics_basic_309
     21300620: stgpics_basic_310
     21300622: stgpics_basic_311
-    21300624: stgpics_basic_312
+    21300624: enemy_bulletMed
     21300626: stgpics_basic_313
-    21300628: enemy_bulletMed
+    21300628: stgpics_basic_314
     21300630: stgpics_basic_315
     21300632: stgpics_basic_316
     21300634: stgpics_basic_317
@@ -339,9 +339,9 @@ TextureImporter:
     21300664: stgpics_basic_332
     21300666: stgpics_basic_333
     21300668: stgpics_basic_334
-    21300670: stgpics_basic_335
-    21300672: stgpics_basic_336
-    21300674: stgpics_basic_337
+    21300670: BeamTop
+    21300672: BeamMid
+    21300674: BeamEnd
     21300676: stgpics_basic_338
     21300678: stgpics_basic_339
     21300680: stgpics_basic_340
@@ -409,7 +409,7 @@ TextureImporter:
     21300804: stgpics_basic_402
     21300806: stgpics_basic_403
     21300808: stgpics_basic_404
-    21300810: stgpics_basic_405
+    21300810: ItemWeaponUpgrade
     21300812: stgpics_basic_406
     21300814: stgpics_basic_407
     21300816: stgpics_basic_408
@@ -420,7 +420,7 @@ TextureImporter:
     21300826: stgpics_basic_413
     21300828: stgpics_basic_414
     21300830: stgpics_basic_415
-    21300832: stgpics_basic_416
+    21300832: ItemShield
     21300834: stgpics_basic_417
     21300836: stgpics_basic_418
     21300838: stgpics_basic_419
@@ -463,8 +463,8 @@ TextureImporter:
     21300912: stgpics_basic_456
     21300914: stgpics_basic_457
     21300916: stgpics_basic_458
-    21300918: stgpics_basic_459
-    21300920: stgpics_basic_460
+    21300918: PlayerShieldDamaged
+    21300920: PlayerShieldMax
     21300922: stgpics_basic_461
     21300924: stgpics_basic_462
     21300926: stgpics_basic_463
@@ -657,7 +657,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_4
+      name: playerShadow
       rect:
         serializedVersion: 2
         x: 422
@@ -748,7 +748,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_11
+      name: player_bulletM_Top
       rect:
         serializedVersion: 2
         x: 119
@@ -774,7 +774,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: player_bulletM
+      name: player_bulletM_left
       rect:
         serializedVersion: 2
         x: 155
@@ -4505,12 +4505,12 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_300
+      name: enemy_bulletSmall
       rect:
         serializedVersion: 2
-        x: 148
+        x: 150
         y: 306
-        width: 8
+        width: 4
         height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -4531,7 +4531,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: enemy_bulletSmall
+      name: stgpics_basic_302
       rect:
         serializedVersion: 2
         x: 168
@@ -4661,12 +4661,12 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_312
+      name: enemy_bulletMed
       rect:
         serializedVersion: 2
-        x: 194
+        x: 200
         y: 299
-        width: 16
+        width: 4
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -4687,7 +4687,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: enemy_bulletMed
+      name: stgpics_basic_314
       rect:
         serializedVersion: 2
         x: 233
@@ -4960,7 +4960,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_335
+      name: BeamTop
       rect:
         serializedVersion: 2
         x: 281
@@ -4973,7 +4973,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_336
+      name: BeamMid
       rect:
         serializedVersion: 2
         x: 300
@@ -4986,7 +4986,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_337
+      name: BeamEnd
       rect:
         serializedVersion: 2
         x: 319
@@ -5870,7 +5870,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_405
+      name: ItemWeaponUpgrade
       rect:
         serializedVersion: 2
         x: 269
@@ -6013,7 +6013,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_416
+      name: ItemShield
       rect:
         serializedVersion: 2
         x: 311
@@ -6572,7 +6572,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_459
+      name: PlayerShieldDamaged
       rect:
         serializedVersion: 2
         x: 135
@@ -6585,7 +6585,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: stgpics_basic_460
+      name: PlayerShieldMax
       rect:
         serializedVersion: 2
         x: 170

@@ -1,50 +1,78 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// COMP3064 Assignment 1
+// Due Date: Sunday, October 30, 2016
+// Instructor: Przemyslaw Pawluk
+// Kazuma Sato 100 948 212
+
 public class BkgndPlanetsController : MonoBehaviour {
 
 	[SerializeField]
-	private float speed;
+	private float topPlanetSpeed;
 
-	private Transform _transform;
-	private Vector2 _currentPosition;
+    [SerializeField]
+    private float bottomPlanetSpeed;
+
+    [SerializeField]
+    private GameObject topPlanet;
+
+    [SerializeField]
+    private GameObject bottomPlanet;
+
+    private GameObject topPlanetInstance;
+    private GameObject bottomPlanetInstance;
 	private float _xBounds;
 	private float _yBounds;
 
 	// Use this for initialization
 	void Start() {
-		_transform = gameObject.GetComponent<Transform>();
-		_currentPosition = _transform.position;
 		_xBounds = Camera.main.orthographicSize * Camera.main.aspect;
 		_yBounds = Camera.main.orthographicSize;
-		Reset ();
+        topPlanetSpeed = 0;
+        bottomPlanetSpeed = 0;
+        topPlanetInstance = Reset(topPlanet);
+        bottomPlanetInstance = Reset(bottomPlanet);
 	}
 	
 	// Update is called once per frame
 	void Update() {
-		
-		_currentPosition = _transform.position;
 
-		_currentPosition += new Vector2(speed, 0);
-		_transform.position = _currentPosition;
-
-		if (_currentPosition.x > _xBounds) 
-			Reset ();
+        topPlanetInstance.transform.Translate(Vector3.down * topPlanetSpeed);
+        bottomPlanetInstance.transform.Translate(Vector3.down * bottomPlanetSpeed);
+        
+        if(checkBound(topPlanetInstance)) {
+            Destroy(topPlanetInstance);
+            topPlanetInstance = Reset(topPlanet);
+        }
+        if(checkBound(bottomPlanetInstance)) { 
+            Destroy(bottomPlanetInstance);
+            bottomPlanetInstance = Reset(bottomPlanet);
+        }
 	}
 
-	private void Reset(){
-		
-		float direction = (Random.value >= 0.5)? 1 : -1;
-		speed = Random.value * 0.5f;
+    private GameObject Reset(GameObject planet){
+        
+        GameObject planetInstance;
+        Vector3 spawnPosition = new Vector3(-_xBounds, 0, 0);
+        Vector3 spawnRotation = new Vector3(0, 0, 90);
 
-		_transform.localScale = new Vector3 (speed * 4, speed * 4, 1);
+        if(planet.tag == "BottomPlanet") {
+            bottomPlanetSpeed = Random.value;
+            spawnPosition.y = -_yBounds;
 
-		_transform.Rotate(0,0,
-			_transform.rotation.z + ((direction == 1) ? 180 : 0));
-		_transform.position = _currentPosition;
-		_currentPosition = new Vector2(
-			Camera.main.gameObject.transform.position.x - _xBounds, 
-			direction * _yBounds);
-		_transform.position = _currentPosition;
+        } else if(planet.tag == "TopPlanet") {
+            topPlanetSpeed = Random.value;
+            spawnPosition.y = _yBounds;
+        }
+
+        planetInstance =  Instantiate(planet, spawnPosition, Quaternion.Euler(spawnRotation)) as GameObject;
+        planetInstance.transform.parent = gameObject.transform;
+        return planetInstance;
 	}
+    private bool checkBound(GameObject planet){
+
+        float width = planet.GetComponent<Renderer>().bounds.size.x;
+        return planet.transform.position.x - width > _xBounds;
+    }
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 // COMP3064 Assignment 1
@@ -20,13 +20,26 @@ public class EnemyController : MonoBehaviour {
 	[SerializeField]
 	private float speedGameMax = 5f;
 
+	[SerializeField]
+	private GameObject bullet;
+
+	[SerializeField]
+	private float fireRate;
+
+	[SerializeField]
+	private float bulletDamage;
+
+	[SerializeField]
+	public float collisionDamage;
+
+	[SerializeField]
+	public GameObject explosion;
+
 	private Transform _transform;
 	private Vector2 _currentPosition;
 	private float _xBounds;
 	private float _yBounds;
-
-	//direction: positive when moving up, negative when moving down
-	private int direction = 1;
+	private float bulletTimer;
 
 	void Start(){
 
@@ -36,36 +49,45 @@ public class EnemyController : MonoBehaviour {
 		//Get the bounds of the Camera
 		_xBounds = Camera.main.orthographicSize * Camera.main.aspect;
 		_yBounds = Camera.main.orthographicSize;
-		Reset ();
+		bulletTimer = Time.time + fireRate;
 	}
 
 	void Update(){
 
 		_currentPosition = _transform.position;
-		Vector2 currSpeed = new Vector2(speed.x, speed.y * -direction);
-		_currentPosition += currSpeed;
-		_transform.position = _currentPosition;
+		_transform.Translate(Vector3.up * Random.value * speedCurrentMax);
+
+		if(bulletTimer <= Time.time){
+			Instantiate(bullet, _currentPosition, _transform.rotation);
+			bulletTimer = Time.time + fireRate;
+		}
 
 		//Check to if enemy is out of bounds
 		if(_currentPosition.x > _xBounds ||
-				Mathf.Abs( _currentPosition.y) > _yBounds) 
-			Reset();
+		   Mathf.Abs(_currentPosition.y) > _yBounds)
+			Destroy(gameObject);
 	}
 
-	public void Reset(){
+	//When hit by the player, the player takes damage, explosion animates and enemy resets.
+	void OnTriggerEnter2D(Collider2D other) {
 
-		//Randomly selects if enemy is coming from top or bottom
-		direction *= (Random.value >= 0.5)? 1 : -1;
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Player") && 
+			    other.tag == "Ship") {
+			other.GetComponent<Player> ().addDamage (collisionDamage);
+			Instantiate (
+				explosion, _transform.position, _transform.rotation);
+			Destroy(gameObject);
+        }
 
-		//Randomly changes speed but increases possible speed as game progresses
-		if(speedCurrentMax * speedIncreaseFactor < speedGameMax)
-			speedCurrentMax *= speedIncreaseFactor;
-		speed = new Vector2(speedCurrentMax * Random.value,
-			speedCurrentMax * Random.value);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player") &&
+                other.tag == "bullet") {
+            Instantiate (
+                explosion, _transform.position, _transform.rotation);
+        }
+	}
 
-		_currentPosition = new Vector2(
-			Camera.main.gameObject.transform.position.x - _xBounds, 
-			direction * _yBounds);
-		_transform.position = _currentPosition;
+	//Just in case OnTriggerEnter2D() doesn't invoke on enter
+	void OnTriggerStay2D(Collider2D other){
+		OnTriggerEnter2D(other);
 	}
 }
