@@ -63,19 +63,20 @@ public class Player : MonoBehaviour {
 				shield = 0;
 				health -= damage;
 			}
-		} else {
+        } else if (health > 0){
 			health -= damage;
-		}
-		if (health <= 0) {
-			health = 0;
-			die ();
+        } else if (health <= 0) {
+            die();
+			health = 0;			
 		}
         Debug.Log("Shield : " + shield.ToString());
         Debug.Log("Life: " + life.ToString ());
 	}
 
 	private void die(){
-		if (life < 0) {
+
+        Debug.Log("YOU FUCKING BASTARD!");
+		if (life > 0) {
 			life--;
 			health = maxHealth;
 			shield = 0;

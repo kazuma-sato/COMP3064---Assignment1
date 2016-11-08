@@ -30,7 +30,7 @@ public class ShieldController : MonoBehaviour {
 		if (player.shield == 0) 
 			return; 
 			
-		if (player.shield == player.maxShield)
+		if (player.shield == player.maxShield / 2)
 			maxShield.SetActive (true);
 		else
 			damagedShield.SetActive (true);

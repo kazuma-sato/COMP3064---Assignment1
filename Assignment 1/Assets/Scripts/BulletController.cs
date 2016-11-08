@@ -45,6 +45,7 @@ public class BulletController : MonoBehaviour {
 				explosion, _transform.position, _transform.rotation);
 			if(gameObject.tag != "Beam1")
 				Destroy (gameObject);
+            Camera.main.GetComponent<SFXController>().PlaySound(6, _transform.position);
 		}
 	}
 

@@ -40,9 +40,7 @@ public class ItemController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 
-        Debug.Log("The item hit " + LayerMask.LayerToName(other.gameObject.layer));
-        Debug.Log(gameObject.tag + "item effect should happen: " + (other.gameObject.layer == LayerMask.NameToLayer ("Player") && other.tag == "Ship"));
-		if (other.gameObject.layer == LayerMask.NameToLayer ("Player") && other.tag == "Ship") {
+        if (other.gameObject.layer == LayerMask.NameToLayer ("Player") && other.tag == "Ship") {
 			Player player = other.gameObject.GetComponent<Player> ();
 			if (gameObject.tag == "ShieldItem")
 				shieldItemEffect(player);
@@ -62,11 +60,13 @@ public class ItemController : MonoBehaviour {
     private void shieldItemEffect(Player player){
         
 		player.addShield(50f);
+        Camera.main.GetComponent<SFXController>().PlaySound(3, _transform.position);
 	}
 
 	private void weaponUpgradeEffect (Player player){
         
 		player.weapon = "Beam1";
         player.GetComponentInParent<Weapon>().beamEffectUntil = Time.time + 4;
+        Camera.main.GetComponent<SFXController>().PlaySound(4, _transform.position);
 	}
 }

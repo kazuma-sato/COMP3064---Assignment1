@@ -77,12 +77,14 @@ public class EnemyController : MonoBehaviour {
 			Instantiate (
 				explosion, _transform.position, _transform.rotation);
 			Destroy(gameObject);
+            Camera.main.GetComponent<SFXController>().PlaySound(2, _transform.position);
         }
 
         if(other.gameObject.layer == LayerMask.NameToLayer("Player") &&
                 other.tag == "bullet") {
             Instantiate (
                 explosion, _transform.position, _transform.rotation);
+            Camera.main.GetComponent<SFXController>().PlaySound(6, _transform.position);
         }
 	}
 

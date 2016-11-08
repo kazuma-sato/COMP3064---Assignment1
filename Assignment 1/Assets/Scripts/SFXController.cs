@@ -22,7 +22,7 @@ public class SFXController : MonoBehaviour {
 
     void Start(){
         audioClips = new AudioClip[] {
-            bullet, crash, item1, item2, explosion1, explosion2};
+            bullet, beam, crash, item1, item2, explosion1, explosion2};
     }
 
     public void PlaySound(AudioClip clip){

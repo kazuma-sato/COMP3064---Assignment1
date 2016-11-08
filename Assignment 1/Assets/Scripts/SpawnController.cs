@@ -38,9 +38,10 @@ public class SpawnController : MonoBehaviour {
 		
 		if(timer <= Time.time) {
 			spawn();
-			if (spawnFrequency < maxSpawnFrequency){
+			if (spawnFrequency > maxSpawnFrequency){
 				spawnFrequency *= spawnFrequencyIncreaceFactor;
-			} else if (spawnFrequency > maxSpawnFrequency){
+			} 
+            if (spawnFrequency < maxSpawnFrequency){
 				spawnFrequency = maxSpawnFrequency;
 			}
 			timer = Time.time + spawnFrequency;

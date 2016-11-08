@@ -42,7 +42,9 @@ public class EnemyBulletController : MonoBehaviour {
             player.addDamage(damage);
             Instantiate (
                 explosion, _transform.position, _transform.rotation);
+            Camera.main.GetComponent<SFXController>().PlaySound(5, _transform.position);
             Destroy(gameObject);
+
         }
     }
 
