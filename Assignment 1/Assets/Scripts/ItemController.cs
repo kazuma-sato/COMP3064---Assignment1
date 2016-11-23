@@ -15,7 +15,7 @@ public class ItemController : MonoBehaviour {
 	private float _yBounds;
 
 	// Use this for initialization
-	void Awake () {
+	void Awake() {
         
 		_transform = gameObject.GetComponent<Transform>();
 		_currentPosition = _transform.position;
@@ -25,27 +25,29 @@ public class ItemController : MonoBehaviour {
 		_yBounds = Camera.main.orthographicSize;
         transform.rotation = Quaternion.Euler(Vector3.zero);
 	}
-
-	// Update is called once per frame
-	void FixedUpdate () {
+        
+	void FixedUpdate() {
 
         _currentPosition = _transform.position;
         transform.Translate(Vector3.right * speed);
 
 		//Check to if enemy is out of bounds
-		if (_currentPosition.x > _xBounds ||
-		   Mathf.Abs (_currentPosition.y) > _yBounds)
-			Destroy (gameObject);
+		if(_currentPosition.x > _xBounds ||
+		   Mathf.Abs(_currentPosition.y) > _yBounds)
+			Destroy(gameObject);
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 
-        if (other.gameObject.layer == LayerMask.NameToLayer ("Player") && other.tag == "Ship") {
-			Player player = other.gameObject.GetComponent<Player> ();
-			if (gameObject.tag == "ShieldItem")
-				shieldItemEffect(player);
-			if (gameObject.tag == "WeaponUpgradeItem")
-				weaponUpgradeEffect(player);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player") && other.tag == "Ship") {
+			Player player = other.gameObject.GetComponent<Player>();
+            if(gameObject.tag == "ShieldItem") {
+                shieldItemEffect(player);
+            }
+            if(gameObject.tag == "WeaponUpgradeItem") {
+                weaponUpgradeEffect(player);
+            }
+            HUDController.currentScore += 50;
             Instantiate(hitEffect, transform);
             Destroy(gameObject);
 		}
@@ -59,7 +61,7 @@ public class ItemController : MonoBehaviour {
 
     private void shieldItemEffect(Player player){
         
-		player.addShield(50f);
+        player.addShield(50);
         Camera.main.GetComponent<SFXController>().PlaySound(3, _transform.position);
 	}
 

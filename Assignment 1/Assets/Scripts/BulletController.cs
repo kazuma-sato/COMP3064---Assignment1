@@ -10,10 +10,9 @@ public class BulletController : MonoBehaviour {
 	private GameObject explosion;
 
 	[SerializeField]
-	public float damage;
+	public int damage;
 
 	private Transform _transform;
-
 	private float _xBounds;
 	private float _yBounds;
 

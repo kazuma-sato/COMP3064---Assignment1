@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnController : MonoBehaviour {
 
 	[SerializeField]
-	private float spawnFrequency;
+    public float spawnFrequency;
 
 	[SerializeField]
 	private float maxSpawnFrequency;
@@ -38,10 +38,10 @@ public class SpawnController : MonoBehaviour {
 		
 		if(timer <= Time.time) {
 			spawn();
-			if (spawnFrequency > maxSpawnFrequency){
+			if(spawnFrequency > maxSpawnFrequency){
 				spawnFrequency *= spawnFrequencyIncreaceFactor;
 			} 
-            if (spawnFrequency < maxSpawnFrequency){
+            if(spawnFrequency < maxSpawnFrequency){
 				spawnFrequency = maxSpawnFrequency;
 			}
 			timer = Time.time + spawnFrequency;

@@ -25,7 +25,7 @@ public class BkgndPlanetsController : MonoBehaviour {
 	private float _xBounds;
 	private float _yBounds;
 
-	// Use this for initialization
+
 	void Start() {
 		_xBounds = Camera.main.orthographicSize * Camera.main.aspect;
 		_yBounds = Camera.main.orthographicSize;
@@ -35,7 +35,7 @@ public class BkgndPlanetsController : MonoBehaviour {
         bottomPlanetInstance = Reset(bottomPlanet);
 	}
 	
-	// Update is called once per frame
+
 	void Update() {
 
         topPlanetInstance.transform.Translate(Vector3.down * topPlanetSpeed);

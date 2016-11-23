@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float fireRate;
 	[SerializeField]
-	private float damage;
+	private int damage;
 	[SerializeField]
 	private LayerMask toHit;
 	[SerializeField]
@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour {
 
 	void Awake() {
 
-		player = gameObject.GetComponent<Player> ();
+		player = gameObject.GetComponent<Player>();
 		firePoint = transform.FindChild("FirePoint");
         beamEffectUntil = Time.time;
 	}
@@ -41,23 +41,23 @@ public class Weapon : MonoBehaviour {
 		if (player.weapon == "Gun1") {
 			currentProjectile = bullet;
 			if (fireRate == 0) {
-				if (Input.GetAxisRaw ("Fire1") > 0)
+				if (Input.GetAxisRaw("Fire1") > 0)
 					shootBullets (currentProjectile);
-			} else if ((Input.GetAxisRaw ("Fire1") > 0) && Time.time > timeToFire) {
+			} else if ((Input.GetAxisRaw("Fire1") > 0) && Time.time > timeToFire) {
 				timeToFire = Time.time + 1 / fireRate;
 				shootBullets (currentProjectile);
                 Camera.main.GetComponent<SFXController>().PlaySound(0, firePoint.position);
 			}
-		} else if (player.weapon == "Beam1") {
-			if (Input.GetButtonDown ("Fire1")) {
+		} else if(player.weapon == "Beam1") {
+			if (Input.GetButtonDown("Fire1")) {
 				currentProjectile = beamTop;
-			} else if (Input.GetButton ("Fire1")) {
+			} else if(Input.GetButton("Fire1")) {
 				currentProjectile = beamMid;
-			} else if (Input.GetButtonUp ("Fire1")) {
+			} else if(Input.GetButtonUp("Fire1")) {
 				currentProjectile = beamEnd;
 				shootBeams (currentProjectile);
 			}
-			if(Input.GetAxisRaw ("Fire1") > 0) 
+			if(Input.GetAxisRaw("Fire1") > 0) 
                 shootBeams (currentProjectile);
             if(currentProjectile == beamTop) 
                 Camera.main.GetComponent<SFXController>().PlaySound(1, firePoint.position);
@@ -76,8 +76,9 @@ public class Weapon : MonoBehaviour {
 					Vector3.forward, 
 					Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)) 
 				as GameObject;
-		bulletInstance.GetComponent<BulletController> ().damage = damage;
+		bulletInstance.GetComponent<BulletController>().damage = damage;
 	}
+
 	void shootBeams(GameObject beam){
 		Vector2 firePointPosition = new Vector2(
 			firePoint.position.x, 
@@ -89,7 +90,7 @@ public class Weapon : MonoBehaviour {
 				Vector3.forward, 
 				Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)) 
 			as GameObject;
-		beamInstance.GetComponent<BulletController> ().damage = damage;
+		beamInstance.GetComponent<BulletController>().damage = damage;
 		beamInstance.transform.parent = gameObject.transform;
 	}
 }

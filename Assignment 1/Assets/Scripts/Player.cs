@@ -8,81 +8,99 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	private bool godMode = false;
+	public bool godMode = false;
 
 	[SerializeField]
-	public float health;
+	public int health;
 	[SerializeField]
-	public float maxHealth;
+    public int maxHealth;
 	[SerializeField]
-	public float shield;
+	public int shield;
 	[SerializeField]
-	public float maxShield;
+	public int maxShield;
 	[SerializeField]
-	public int life;
+	private int life;
 
 	public string weapon = "Gun1";
-	public static Player instance;
+    private static Player instance;
 
-	public Player(){
-	
-		instance = this;
-		this.health = maxHealth;
-		this.shield = 0;
-		this.life = 3;
+    public int Health{
+    	get { return health; }
+    	set {
+    		if(value <= 0){
+    			health = 0;
+    		} else {
+    			health = value;
+    		}
+    	}
+    }
+
+    public int Shield{
+    	get { return shield; }
+    	set {
+    		if(value < 0) {
+    			shield = 0;
+    		} else {
+    			shield = value;
+    		} 
+
+    	}
+    }
+
+    public int Life{
+    	get { return life; }
+    	set {
+			bool dead = life > value;
+			if(value < 0){
+				life = 0;
+				GameObject.Find("HUD").GetComponent<HUDController>().GameOver = true;
+			} else {
+				life = value;
+			}
+			if(dead){
+				health = 100;
+				shield = 0;
+				gameObject.GetComponent<PlayerController>().IsDead = true;
+			}
+		}
 	}
 
-	public void addHealth(float health){
+    void Awake() {
+	
+        health = maxHealth;
+	}
+
+	public void addHealth(int health){
 
 		this.health += health;
 		if (this.health > maxHealth) 
 			this.health = maxHealth;
-        Debug.Log("Life: " + life.ToString ());
 	}
 
-	public void addShield(float shield){
+	public void addShield(int shield){
 
 		this.shield += shield;
 		if (this.shield > maxShield) 
 			this.shield = maxShield;
-        Debug.Log("Shield : " + shield.ToString());
-
 	}
 
-	public void addDamage(float damage){
+	public void addDamage(int damage){
 		
-		if (godMode) return;
+		if(godMode) return;
 
-		Debug.Log("Player took + " + damage + "damage.");
-
-		if (shield > 0) {
-			if (shield > damage)
-				shield -= damage;
-			else {
+		if(Shield > 0) {
+            if(shield > damage) {
+                Shield -= damage;
+            } else {
 				damage -= shield;
-				shield = 0;
-				health -= damage;
+                Shield = 0;
+				Health -= damage;
 			}
         } else if (health > 0){
 			health -= damage;
         } else if (health <= 0) {
-            die();
-			health = 0;			
+            health = 0;
+            Life--;
 		}
-        Debug.Log("Shield : " + shield.ToString());
-        Debug.Log("Life: " + life.ToString ());
-	}
-
-	private void die(){
-
-        Debug.Log("YOU FUCKING BASTARD!");
-		if (life > 0) {
-			life--;
-			health = maxHealth;
-			shield = 0;
-		} else {
-		
-		}
-        Debug.Log("Life: " + life.ToString ());
 	}
 }

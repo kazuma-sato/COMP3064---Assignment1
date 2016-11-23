@@ -13,26 +13,26 @@ public class ShieldController : MonoBehaviour {
     private Player player;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
         player = GetComponentInParent<Player> ();
 	}
 
 	// Update is called once per frame
-	void Update () {
-		setShield ();
+	void Update() {
+		setShield();
 	}
 
 	void setShield(){
 
 		maxShield.SetActive(false);
-		damagedShield.SetActive (false);
+		damagedShield.SetActive(false);
 
-		if (player.shield == 0) 
-			return; 
+		if(player.shield == 0) return; 
 			
-		if (player.shield == player.maxShield / 2)
-			maxShield.SetActive (true);
-		else
-			damagedShield.SetActive (true);
+        if(player.shield == player.maxShield / 2) {
+            maxShield.SetActive(true);
+        } else {
+            damagedShield.SetActive(true);
+        }
 	}
 }

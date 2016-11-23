@@ -4,33 +4,14 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	[SerializeField]
-	public float maxHealth;
-	private float health;
+	private int health;
 
-	// Use this for initialization
-	void Start () {
-
-		health = maxHealth;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	public void addDamage(float damage){
-
-		Debug.Log("Enemy took + " + damage + "damage.");
-
+	public void addDamage(int damage) {
+        
 		health -= damage;
-		if (health <= 0) {
-			die ();
+        HUDController.currentScore += damage * 10;
+		if(health <= 0) {
+            Destroy(gameObject);
 		}
-		Debug.Log ("Current Player Status:\n\nHealth: " + health.ToString () + " /  " + maxHealth.ToString () + ".");
-	}
-	public void die(){
-
-		health = maxHealth;
-        Destroy(gameObject);
-
 	}
 }

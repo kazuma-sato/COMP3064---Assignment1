@@ -10,28 +10,16 @@ public class EnemyController : MonoBehaviour {
 	
 	[SerializeField]
 	private Vector2 speed;
-
 	[SerializeField]
 	private float speedCurrentMax = 0.2f;
-
-	[SerializeField]
-	private float speedIncreaseFactor = 1.01f;
-
-	[SerializeField]
-	private float speedGameMax = 5f;
-
 	[SerializeField]
 	private GameObject bullet;
-
 	[SerializeField]
 	private float fireRate;
-
 	[SerializeField]
 	private float bulletDamage;
-
 	[SerializeField]
-	public float collisionDamage;
-
+	public int collisionDamage;
 	[SerializeField]
 	public GameObject explosion;
 
