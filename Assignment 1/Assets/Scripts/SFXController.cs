@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// COMP3064 CRN13018 Assignment 1 
+// Thursday, November 24, 2016
+// Instructor: Przemyslaw Pawluk
+// Kazuma Sato 100 948 212 kazuma.sato@georgebrown.ca
+
 public class SFXController : MonoBehaviour {
+
+    // Properties //
 
     [SerializeField]
     private AudioClip bullet;
@@ -20,6 +27,8 @@ public class SFXController : MonoBehaviour {
 
     private AudioClip[] audioClips;
 
+    // Methods //
+
     void Start(){
         audioClips = new AudioClip[] {
             bullet, beam, crash, item1, item2, explosion1, explosion2};
@@ -29,7 +38,7 @@ public class SFXController : MonoBehaviour {
         
         GetComponent<AudioSource>().PlayOneShot(clip);
     }
-
+    
     public void PlaySound(int index, Vector3 position){
 
         AudioSource.PlayClipAtPoint(audioClips[index], position);

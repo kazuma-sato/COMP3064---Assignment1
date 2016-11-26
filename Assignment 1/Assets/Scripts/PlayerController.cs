@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// COMP3064 Assignment 1
-// Due Date: Sunday, October 30, 2016
+// COMP3064 CRN13018 Assignment 1 
+// Thursday, November 24, 2016
 // Instructor: Przemyslaw Pawluk
-// Kazuma Sato 100 948 212
+// Kazuma Sato 100 948 212 kazuma.sato@georgebrown.ca
 
 public class PlayerController : MonoBehaviour {
+
+    // Properties //
 
 	[SerializeField]
 	private float speed;
@@ -22,6 +24,10 @@ public class PlayerController : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private bool isDead;
 
+    // Accessors & Mutators //
+
+    // When this value becomes true, Player is moved to the center of the screen,
+    // DeathCoroutine is started, and stops taking damage.
     public bool IsDead{
         get { return isDead; }
         set { 
@@ -33,29 +39,30 @@ public class PlayerController : MonoBehaviour {
                 playerInstance.godMode = true;
                 StopCoroutine("DeathCoroutine");
                 StartCoroutine("DeathCoroutine", isDead);
-            }
-            else {
+            } else {
                 StopCoroutine("DeathCoroutine");
             }
         }
     }
 
+    // Methods //
+
 	void Awake() {
 		
 		_transform = gameObject.GetComponent<Transform>();
 		_currentPosition = _transform.position;
-		_xBounds = Camera.main.orthographicSize * Camera.main.aspect;
-		_yBounds = Camera.main.orthographicSize;
         playerInstance = gameObject.GetComponent<Player>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 	}
 
+    // Moves Player based on user input
 	void Update() {
 
+        _xBounds = Camera.main.orthographicSize * Camera.main.aspect;
+        _yBounds = Camera.main.orthographicSize;
         _playerInputVertical = Input.GetAxis("Vertical");
         _playerInputHorizontal = Input.GetAxis("Horizontal");
         _currentPosition = _transform.position;
-
 
         //Rotate Player towards mouse pointer
         transform.rotation = Quaternion.LookRotation(
@@ -91,6 +98,9 @@ public class PlayerController : MonoBehaviour {
         _transform.position = _currentPosition;
 
     }
+
+    // Player_ship flashes until respawnTime. 
+    // When spawnTime is reached, the player starts taking damage again.
     IEnumerator DeathCoroutine(bool isDead){
 
         while(isDead && respawnTime > Time.time) {

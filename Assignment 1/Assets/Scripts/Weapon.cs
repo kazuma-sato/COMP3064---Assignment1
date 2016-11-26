@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// COMP3064 CRN13018 Assignment 1 
+// Thursday, November 24, 2016
+// Instructor: Przemyslaw Pawluk
+// Kazuma Sato 100 948 212 kazuma.sato@georgebrown.ca
+
 public class Weapon : MonoBehaviour {
+
+	// Properties //
 
 	[SerializeField]
 	private float fireRate;
@@ -20,34 +27,45 @@ public class Weapon : MonoBehaviour {
 	[SerializeField]
 	private Transform firePoint;
 
+	private	GameObject currentProjectile;
 	private float timeToFire;
 	private Player player;
     public float beamEffectUntil;
+
+    // Accessors & Mutators //
 
 	void Awake() {
 
 		player = gameObject.GetComponent<Player>();
 		firePoint = transform.FindChild("FirePoint");
-        beamEffectUntil = Time.time;
+        beamEffectUntil = 0;
 	}
 	
-	// Update is called once per frame
  	void Update() {
 
-        GameObject currentProjectile = bullet;
+        // If past beamEffectUntil, weapon is changed back to the default gun.
         if(beamEffectUntil < Time.time) {
             player.weapon = "Gun1";
-        }
-		if (player.weapon == "Gun1") {
+        } 
+
+        // Gun1 shoots a bullet every frame if fireRate is 0. 
+        // Otherwise, it will shoot once every 1/firerate of a seconds.
+		if(player.weapon == "Gun1") {
 			currentProjectile = bullet;
-			if (fireRate == 0) {
-				if (Input.GetAxisRaw("Fire1") > 0)
-					shootBullets (currentProjectile);
-			} else if ((Input.GetAxisRaw("Fire1") > 0) && Time.time > timeToFire) {
+			if(fireRate == 0) {
+				if(Input.GetAxisRaw("Fire1") > 0){
+					shootBullets(currentProjectile);
+				}
+			} else if((Input.GetAxisRaw("Fire1") > 0) && Time.time > timeToFire) {
 				timeToFire = Time.time + 1 / fireRate;
 				shootBullets (currentProjectile);
+
+				//Plays shooting SFX
                 Camera.main.GetComponent<SFXController>().PlaySound(0, firePoint.position);
 			}
+
+		// The Beam sprite comes in 3 parts. This block allows the beam to be 
+		// constructed properly.
 		} else if(player.weapon == "Beam1") {
 			if (Input.GetButtonDown("Fire1")) {
 				currentProjectile = beamTop;
@@ -57,13 +75,17 @@ public class Weapon : MonoBehaviour {
 				currentProjectile = beamEnd;
 				shootBeams (currentProjectile);
 			}
-			if(Input.GetAxisRaw("Fire1") > 0) 
+			if(Input.GetAxisRaw("Fire1") > 0) {
                 shootBeams (currentProjectile);
-            if(currentProjectile == beamTop) 
+			}
+            if(currentProjectile == beamTop) {
                 Camera.main.GetComponent<SFXController>().PlaySound(1, firePoint.position);
+            }
 		}
 	}
 
+	// Instanciates a bullet from where Firepoint is, pointing towards the mouse 
+	// curser.
 	void shootBullets(GameObject projectile) {
  		
 		Vector2 firePointPosition = new Vector2(
@@ -79,6 +101,9 @@ public class Weapon : MonoBehaviour {
 		bulletInstance.GetComponent<BulletController>().damage = damage;
 	}
 
+
+	// Similar to shootBullets but, the beam instaciates as a child of gameObject.
+	// So, when the player_ship moves or rotates, the beam moves and rotates with with it.
 	void shootBeams(GameObject beam){
 		Vector2 firePointPosition = new Vector2(
 			firePoint.position.x, 

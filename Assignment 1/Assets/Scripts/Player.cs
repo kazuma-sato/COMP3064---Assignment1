@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// COMP3064 Assignment 1
-// Due Date: Sunday, October 30, 2016
+// COMP3064 CRN13018 Assignment 1 
+// Thursday, November 24, 2016
 // Instructor: Przemyslaw Pawluk
-// Kazuma Sato 100 948 212
+// Kazuma Sato 100 948 212 kazuma.sato@georgebrown.ca
 
 public class Player : MonoBehaviour {
 
+	// Properties //
+
+	// If true, the player doesn't take damage.
 	public bool godMode = false;
 
 	[SerializeField]
@@ -24,30 +27,41 @@ public class Player : MonoBehaviour {
 	public string weapon = "Gun1";
     private static Player instance;
 
-    public int Health{
+    // Accessors & Mutators //
+
+    // Stops values from becoming negative or larger than maxHealth
+    public int Health {
+
     	get { return health; }
     	set {
-    		if(value <= 0){
-    			health = 0;
-    		} else {
-    			health = value;
-    		}
+            if(value < 0) {
+                health = 0;
+            } else if(value > maxHealth) {
+                health = maxHealth;
+            } else {
+                health = value;
+            }
     	}
     }
 
-    public int Shield{
+    // Stops values from becoming negative or larger than maxShield
+    public int Shield {
+
     	get { return shield; }
     	set {
-    		if(value < 0) {
-    			shield = 0;
-    		} else {
-    			shield = value;
-    		} 
-
+            if(value < 0) {
+                shield = 0;
+            } else if(value > maxShield) {
+                shield = maxShield;
+            } else {
+                shield = value;
+            }
     	}
     }
 
-    public int Life{
+    // Triggers appropriate functions for when the player dies.
+    public int Life {
+
     	get { return life; }
     	set {
 			bool dead = life > value;
@@ -65,41 +79,49 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-    void Awake() {
+	// Methods //
+
+    void Start() {
 	
         health = maxHealth;
 	}
 
 	public void addHealth(int health){
 
-		this.health += health;
-		if (this.health > maxHealth) 
-			this.health = maxHealth;
+		Health += health;
+		if (Health > maxHealth){
+			Health = maxHealth;
+		}
 	}
 
 	public void addShield(int shield){
 
-		this.shield += shield;
-		if (this.shield > maxShield) 
-			this.shield = maxShield;
+		Shield += shield;
+		if (Shield > maxShield) {
+			Shield = maxShield;
+		}
 	}
 
+	// Method to determine if the damage should be deducted from shield, health 
+	// or just cause the player to die.
 	public void addDamage(int damage){
 		
+		// If godMode is true, no damage is taken
 		if(godMode) return;
 
 		if(Shield > 0) {
-            if(shield > damage) {
+            if(Shield > damage) {
                 Shield -= damage;
             } else {
-				damage -= shield;
+				damage -= Shield;
                 Shield = 0;
 				Health -= damage;
 			}
-        } else if (health > 0){
-			health -= damage;
-        } else if (health <= 0) {
-            health = 0;
+        } else if(Health > 0) {
+			Health -= damage;
+		}
+        if(Health <= 0) {
+            Health = 0;
             Life--;
 		}
 	}

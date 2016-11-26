@@ -47,7 +47,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BkgndPlanetsController.cs" />
      <Compile Include="Assets\Scripts\BulletController.cs" />
-     <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyBulletController.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
@@ -61,7 +60,6 @@
      <Compile Include="Assets\Scripts\ShieldController.cs" />
      <Compile Include="Assets\Scripts\SpawnController.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
-     <None Include="Assets\stg_basic_pics\document_and_picturelist\readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

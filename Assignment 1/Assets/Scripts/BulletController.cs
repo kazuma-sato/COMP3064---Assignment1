@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// COMP3064 CRN13018 Assignment 1 
+// Thursday, November 24, 2016
+// Instructor: Przemyslaw Pawluk
+// Kazuma Sato 100 948 212 kazuma.sato@georgebrown.ca
+
 public class BulletController : MonoBehaviour {
+
+	// Properties //
 
 	[SerializeField]
 	public float speed;
-
 	[SerializeField]
 	private GameObject explosion;
-
 	[SerializeField]
 	public int damage;
 
@@ -16,22 +21,26 @@ public class BulletController : MonoBehaviour {
 	private float _xBounds;
 	private float _yBounds;
 
-	// Use this for initialization
-	void Awake() {
+	// Methods //
 
+	void Start() {
+
+		_transform = GetComponent<Transform>();
+	}
+	
+	// Translates the bullet forwards. Distroys them after leaving the Camera.
+	void Update () {
+
+		// Get bounds of the Camera.main
 		_xBounds = Camera.main.orthographicSize * Camera.main.aspect;
 		_yBounds = Camera.main.orthographicSize;
 
-		_transform = GetComponent<Transform> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
 		_transform.Translate(Vector3.up * speed);
+
 		if(Mathf.Abs(transform.position.x) > _xBounds ||
-				Mathf.Abs (transform.position.y) > _yBounds)
+				Mathf.Abs(transform.position.y) > _yBounds){
 			Destroy(gameObject);
+		}
 	}
 
 	//When bullet hits an Enemy, the Enemy takes damage and bullet is destroyed.
@@ -40,10 +49,9 @@ public class BulletController : MonoBehaviour {
 		if (other.gameObject.layer == LayerMask.NameToLayer ("Enemy")) {
 			Enemy damagedEnemy = other.gameObject.GetComponent<Enemy> ();
 			damagedEnemy.addDamage(damage);
-			Instantiate (
-				explosion, _transform.position, _transform.rotation);
-			if(gameObject.tag != "Beam1")
-				Destroy (gameObject);
+			Instantiate(
+					explosion, _transform.position, _transform.rotation);
+			if(gameObject.tag != "Beam1") Destroy(gameObject);
             Camera.main.GetComponent<SFXController>().PlaySound(6, _transform.position);
 		}
 	}
