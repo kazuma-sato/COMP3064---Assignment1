@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 030ede5f070c0674e989fe38c6faf41c
-timeCreated: 1477794724
+timeCreated: 1480272425
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -38,8 +38,8 @@ TextureImporter:
     21300062: stgpics_testbg_31
     21300064: stgpics_testbg_32
     21300066: stgpics_testbg_33
-    21300068: Enemy2
-    21300070: enemy1
+    21300068: stgpics_testbg_34
+    21300070: stgpics_testbg_35
     21300072: stgpics_testbg_36
     21300074: stgpics_testbg_37
   serializedVersion: 2
@@ -254,8 +254,8 @@ TextureImporter:
         y: 373
         width: 13
         height: 32
-      alignment: 3
-      pivot: {x: 1, y: 1}
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: -1
@@ -533,7 +533,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: Enemy2
+      name: stgpics_testbg_34
       rect:
         serializedVersion: 2
         x: 279
@@ -546,7 +546,7 @@ TextureImporter:
       outline: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: enemy1
+      name: stgpics_testbg_35
       rect:
         serializedVersion: 2
         x: 301
@@ -578,9 +578,9 @@ TextureImporter:
         x: 141
         y: 32
         width: 67
-        height: 120
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        height: 121
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: -1

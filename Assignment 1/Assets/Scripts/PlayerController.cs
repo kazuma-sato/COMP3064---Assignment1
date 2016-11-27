@@ -38,7 +38,9 @@ public class PlayerController : MonoBehaviour {
                 transform.position = Vector3.zero;
                 playerInstance.godMode = true;
                 StopCoroutine("DeathCoroutine");
-                StartCoroutine("DeathCoroutine", isDead);
+                if(!HUDController.GameOver) {
+                    StartCoroutine("DeathCoroutine", isDead);
+                }
             } else {
                 StopCoroutine("DeathCoroutine");
             }

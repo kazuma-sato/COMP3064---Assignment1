@@ -24,12 +24,13 @@ public class HUDController : MonoBehaviour {
     private int currentShield;
     private int currentLife; 
     private static int topScore;
-    public static int currentScore;
-    private bool gameOver;
+    private static int currentScore;
+    private static bool gameOver;
     private Player player;
     private float flashUntil;
-    public MenuController menu;
+    private MenuController menu;
     private SpriteRenderer playerSpriteRenderer;
+    private static HUDController Instance;
 
     // Accessors & Mutators //
 
@@ -58,31 +59,31 @@ public class HUDController : MonoBehaviour {
 
     // When this becomes true, starts GameOverCoroutine which makes the player
     // flashe for 5 seconds. 
-    public bool GameOver{
+    public static bool GameOver{
 
         get { return gameOver; }
         set { 
             gameOver = value;
 
             if(gameOver) {
-                menu = MenuController.Instance;
+                Instance.menu = MenuController.Instance;
                 PlayerPrefs.Save();
-                flashUntil = Time.time + 5;
-                StopCoroutine("GameOverCoroutine");
-                StartCoroutine("GameOverCoroutine", gameOver);
-                menu.menuText.text = "GameOver"+
+                Instance.flashUntil = Time.time + 5;
+                Instance.StopCoroutine("GameOverCoroutine");
+                Instance.StartCoroutine("GameOverCoroutine", gameOver);
+                Instance.menu.menuText.text = "GameOver"+
                     "\nScore:" + currentScore.ToString().PadLeft(11) +
                     "\nTop Score: " + topScore.ToString().PadLeft(7);
-                menu.buttonText.text = "Retry?";
-                menu.button.onClick.AddListener(
+                Instance.menu.buttonText.text = "Retry?";
+                Instance.menu.button.onClick.AddListener(
                     () => {
                         SceneManager.LoadScene("Main");
                     }  
                 );
-                menu.enabled = true;
-                menu.StopGame();
+                Instance.menu.enabled = true;
+                Instance.menu.StopGame();
             } else {
-                StopCoroutine("GameOverCoroutine");
+                Instance.StopCoroutine("GameOverCoroutine");
             }
         }
     }
@@ -91,7 +92,8 @@ public class HUDController : MonoBehaviour {
 
     // Initializing properties.
     void Awake() {
-
+        
+        Instance = this;
         player = GameObject.Find("Player/Player_ship").GetComponent<Player>();
         menu = GameObject.Find("MenuCanvas").GetComponent<MenuController>();
         playerSpriteRenderer = player.GetComponent<SpriteRenderer>();

@@ -67,7 +67,7 @@ public class Player : MonoBehaviour {
 			bool dead = life > value;
 			if(value < 0){
 				life = 0;
-				GameObject.Find("HUD").GetComponent<HUDController>().GameOver = true;
+                HUDController.GameOver = true;
 			} else {
 				life = value;
 			}
